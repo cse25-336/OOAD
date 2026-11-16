@@ -1,10 +1,10 @@
 package model;
 
 public abstract class Person {
-    private String firstName;
-    private String surname;
-    private String address;
-    private String phone;
+    protected String firstName;
+    protected String surname;
+    protected String address;
+    protected String phone;
 
     public Person(String firstName, String surname, String address, String phone) {
         this.firstName = firstName;
@@ -17,8 +17,13 @@ public abstract class Person {
         return firstName + " " + surname;
     }
 
-    public void updateContactDetails(String address, String phone) {
-        this.address = address;
-        this.phone = phone;
+    public String getAddress() {
+        return address;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public abstract String displayContactDetails();
 }

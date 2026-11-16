@@ -11,32 +11,37 @@ public class Customer extends Person {
     private List<Account> accounts;
 
     public Customer(String customerId, String firstName, String surname, String address, String phone, String username, String pin, boolean isEmployed) {
-        super(firstName, surname, address, phone); // Sends details to Person
+        super(firstName, surname, address, phone);
         this.customerId = customerId;
         this.username = username;
-        this.hashedPin = pin; // Keep simple for now; you can hash later
+        this.hashedPin = pin;
         this.isEmployed = isEmployed;
         this.accounts = new ArrayList<>();
     }
 
-    public boolean authenticate(String enteredPin) {
-        return this.hashedPin.equals(enteredPin);
+    public boolean authenticate(String pin) {
+        return this.hashedPin.equals(pin);
+    }
+
+    public void changePin(String oldPin, String newPin) {
+        if (authenticate(oldPin)) {
+            this.hashedPin = newPin;
+        } else {
+            throw new IllegalArgumentException("Incorrect current PIN.");
+        }
     }
 
     public void addAccount(Account account) {
-        accounts.add(account);
+        this.accounts.add(account);
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public Account openAccount(Account account) {
+        this.accounts.add(account);
+        return account;
     }
 
-    public boolean isEmployed() {
-        return isEmployed;
-    }
-
-     public String getUsername() { 
-        return username; 
+    public void closeAccount(String accountNumber) {
+        accounts.removeIf(acc -> acc.getAccountNumber().equals(accountNumber));
     }
 
     public List<Transaction> viewTransactionHistory() {
@@ -46,6 +51,14 @@ public class Customer extends Person {
         }
         return allTransactions;
     }
-    
 
+    public String getCustomerId() { return customerId; }
+    public String getUsername() { return username; }
+    public boolean isEmployed() { return isEmployed; }
+    public List<Account> getAccounts() { return accounts; }
+
+@Override
+public String displayContactDetails() {
+    return "Customer ID: " + customerId + " | Name: " + getFullName() + " | Phone: " + getPhone() + " | Address: " + getAddress();
+}
 }
