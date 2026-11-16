@@ -36,6 +36,15 @@ public class Bank {
         return null;
     }
 
+    public Customer findCustomerByUsername(String username) {
+    for (Customer c : customers) {
+        if (c.getUsername().equalsIgnoreCase(username)) {
+            return c;
+        }
+    }
+    return null;
+     }
+
     public void payMonthlyInterest() {
         for (Account acc : accounts) {
             if (acc instanceof IInterestBearing) {

@@ -35,6 +35,10 @@ public class Customer extends Person {
         return isEmployed;
     }
 
+     public String getUsername() { 
+        return username; 
+    }
+
     public List<Transaction> viewTransactionHistory() {
         List<Transaction> allTransactions = new ArrayList<>();
         for (Account acc : accounts) {
@@ -42,4 +46,6 @@ public class Customer extends Person {
         }
         return allTransactions;
     }
+    
+
 }
